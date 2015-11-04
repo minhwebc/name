@@ -1,0 +1,72 @@
+<html>
+<head>
+	<title>Javascript Demo</title>
+	<style>
+		body {
+			background-color:black;
+			font-family: monospace;
+			color:white;
+			font-size:50px;
+			margin-top:20%;
+			width: 100%;
+			height: 100%;
+		}
+		#magic{
+			color: #777;
+			border-right: 1px solid #777;
+			padding-right: 7px;
+			display: inline;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="code">Coding is <div id="magic"></div></div>
+
+	<script>
+		var words = ["fun", "exciting", "about not giving up", "being helpful", "being open", "what I learned at CodingDojo!"],
+			el = document.getElementById('magic'),
+			word_counter = 0;
+			character_counter = 0;
+		var fullWidth = 1000;
+    	var fullHeight = 1000;
+
+		function getRandomColor() {
+		    var letters = '0123456789ABCDEF'.split('');
+		    var color = '#';
+		    for (var i = 0; i < 6; i++ ) {
+		        color += letters[Math.floor(Math.random() * 16)];
+		    }
+		    return color;
+		}
+		function updateText()
+		{
+			var color = getRandomColor();
+			if(words[word_counter][character_counter] == ' '){
+				el.innerHTML = el.innerHTML+ '&nbsp;';
+			}else{
+				el.innerHTML = el.innerHTML+"<font color="+color+">"+words[word_counter][character_counter]+"</font>";
+			}
+
+			character_counter++;
+
+			if(character_counter == words[word_counter].length+1)
+			{
+				var elem = document.getElementById("code");
+			    elem.style.position = "absolute";
+			    elem.style.left = Math.round(Math.random() * fullWidth) + "px";
+			    elem.style.top = Math.round(Math.random() * fullHeight) + "px";
+				word_counter++; 	//choose a different word
+				character_counter = 0;	//start over with the first character of the word
+				el.innerHTML = '';  //set the html to be blank
+				//if we're displaying the last word, go back to the first word
+				if(word_counter == words.length)
+					word_counter = 0;
+			}
+		}
+		setInterval(updateText,100);
+	</script>
+
+</body>
+
+</html>
